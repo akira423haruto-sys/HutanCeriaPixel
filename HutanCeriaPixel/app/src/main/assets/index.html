@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173b31"><meta name="description" content="Game edukasi offline berbahasa Indonesia untuk anak usia 5 sampai 7 tahun."><title>Hutan Ceria — Petualangan Belajar</title>
+<style>
+:root{--ink:#173b31;--dark:#244c3d;--grass:#4c9b50;--lime:#b5e35b;--gold:#ffd45e;--cream:#fff5ce;--sky:#b1e7ff;--pink:#ff9cb5;--brick:#bd6551}
+*{box-sizing:border-box;image-rendering:pixelated}html{background:#173b31}body{margin:0;background:var(--sky);font-family:"Courier New",monospace;color:var(--ink);font-weight:bold;min-height:100vh;user-select:none;-webkit-tap-highlight-color:transparent}
+button{font:inherit;font-weight:bold;border:3px solid var(--ink);border-radius:0;background:var(--cream);color:var(--ink);box-shadow:4px 4px 0 var(--ink);padding:11px 9px;cursor:pointer;touch-action:manipulation;min-height:44px}button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}button:focus-visible{outline:3px dashed #f08c2e;outline-offset:3px}button:disabled{cursor:default;opacity:.78}button:focus:not(:focus-visible){outline:none}.panel,header,.banner{scroll-margin-top:12px}
+.wrap{max-width:760px;margin:auto;min-height:100vh;padding:12px;background:linear-gradient(var(--sky) 0 25%,#c9f0a6 25% 100%);border-left:4px solid var(--ink);border-right:4px solid var(--ink)}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--cream);border:4px solid var(--ink);padding:10px;box-shadow:5px 5px 0 #57864b}
+.logo{font-size:26px;line-height:1}h1{font-size:clamp(17px,4vw,26px);margin:0;letter-spacing:-1px}.tagline{font-size:10px;margin-top:5px}.stats{display:flex;gap:5px;align-items:center}.sound-toggle{padding:7px 8px;font-size:11px;box-shadow:3px 3px 0 var(--ink)}.stat{background:var(--gold);border:3px solid var(--ink);padding:7px 6px;font-size:12px;white-space:nowrap}
+.banner{position:relative;overflow:hidden;margin:14px 0;background:linear-gradient(135deg,#8bdc70,#55b96d 58%,#2e8e62);border:4px solid var(--ink);padding:13px;display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;box-shadow:5px 5px 0 #57864b}.banner h2{font-size:clamp(18px,5vw,28px);margin:0 0 8px;line-height:1.15}.banner p{font-size:12px;line-height:1.5;margin:0 0 10px}.pixel-hero{width:clamp(76px,22vw,118px);height:clamp(76px,22vw,118px);image-rendering:pixelated;filter:drop-shadow(4px 4px 0 var(--ink));animation:hop 1.5s steps(2,end) infinite;object-fit:contain}.sprite-img{display:block;width:58px;height:58px;object-fit:contain;image-rendering:pixelated;margin:0 auto 5px;filter:drop-shadow(2px 2px 0 #244c3d)}@keyframes hop{50%{transform:translateY(-5px)}}@keyframes pop{50%{transform:scale(1.04)}}
+h3{font-size:15px;margin:18px 0 9px}.characters,.worlds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.character{padding:8px 3px;font-size:11px;min-height:104px}.character .sprite{font-size:32px;display:block;margin-bottom:5px}.character[aria-pressed=true],.world[aria-pressed=true]{background:var(--gold);transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.worlds{grid-template-columns:repeat(2,minmax(0,1fr))}.world{min-height:92px;text-align:left;padding:10px;display:flex;gap:9px;align-items:center}.world .sprite{font-size:28px}.world strong{display:block;font-size:12px}.world small{display:block;font-size:10px;margin-top:5px;line-height:1.25}
+.panel{background:linear-gradient(180deg,#fff9df,var(--cream));border:4px solid var(--ink);padding:12px;margin-top:16px;box-shadow:5px 5px 0 #57864b}.panel-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.panel-head h2{font-size:16px;margin:0}.counter{background:var(--gold);border:2px solid var(--ink);padding:5px;font-size:11px;white-space:nowrap}.progress{height:12px;border:3px solid var(--ink);background:#e6dca7;margin:12px 0}.progress span{display:block;height:100%;width:0;background:var(--grass)}.scene{border:3px solid var(--ink);background:linear-gradient(180deg,#a9e8ff 0 55%,#b8e78a 55% 100%);min-height:88px;display:grid;place-items:center;font-size:clamp(32px,9vw,50px);padding:8px;text-align:center;letter-spacing:3px}.question{font-size:clamp(15px,4vw,20px);line-height:1.45;margin:14px 0}.answers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.answers button{font-size:12px;min-height:60px;overflow-wrap:anywhere;line-height:1.35}.answers button.good{background:#b5e35b;animation:pop .22s steps(2,end)}.answers button.bad{background:#ffb6a6}.feedback{border:3px solid var(--ink);padding:10px;font-size:12px;line-height:1.5;margin-top:12px;background:#d6f1a9}.feedback.hint{background:#bfeaff}.actions{display:flex;gap:9px;margin-top:12px}.actions button{flex:1}.dashboard{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.dash-card{background:#fff5ce;border:3px solid var(--ink);padding:9px 5px;text-align:center;box-shadow:3px 3px 0 #57864b}.dash-card strong{display:block;font-size:19px;color:#2e8e62}.dash-card span{display:block;font-size:9px;margin-top:4px;line-height:1.3}.world-records{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:9px}.world-record{background:#e4f5c7;border:2px solid var(--ink);padding:7px;font-size:10px;display:flex;justify-content:space-between;gap:4px}.footer{text-align:center;font-size:9px;line-height:1.6;padding:19px 4px 8px}
+@media(max-width:390px){.wrap{padding:8px}.stats{flex-direction:column}.stat{padding:4px}.answers{grid-template-columns:1fr}.answers button{min-height:43px}.banner{padding:9px}.world{padding:8px 6px}.world .sprite{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body><main class="wrap">
+<header><div style="display:flex;gap:8px;align-items:center"><span class="logo">🌳</span><div><h1>HUTAN CERIA</h1><div class="tagline">PIXEL QUEST • BELAJAR SERU!</div></div></div><div class="stats"><button class="sound-toggle" id="sound" aria-pressed="true" aria-label="Matikan suara">🔊</button><div class="stat">★ <span id="stars">0</span></div><div class="stat">LV <span id="level">1</span></div></div></header>
+<section class="banner"><div><h2>Petualangan<br>dimulai!</h2><p>Bantu teman hutan memecahkan teka-teki dan kumpulkan bintang.</p><button id="start" aria-label="Mulai petualangan belajar">MULAI ▶</button></div><img class="pixel-hero" src="sprites/fifi.png" alt="Fifi si rubah"></section>
+<h3>▶ PILIH KARAKTER</h3><div class="characters">
+<button class="character" data-hero="🦊" aria-pressed="true"><img class="sprite-img" src="sprites/fifi.png" alt=""><span>FIFI RUBAH</span></button>
+<button class="character" data-hero="🐰" aria-pressed="false"><img class="sprite-img" src="sprites/bubu.png" alt=""><span>BUBU KELINCI</span></button>
+<button class="character" data-hero="🐻" aria-pressed="false"><img class="sprite-img" src="sprites/bonbon.png" alt=""><span>BONBON</span></button>
+</div>
+<h3>▶ PILIH DUNIA</h3><div class="worlds">
+<button class="world" data-world="math" aria-pressed="true"><span class="sprite">🔢</span><span><strong>HUTAN ANGKA</strong><small>Tambah & kurang</small></span></button>
+<button class="world" data-world="animals" aria-pressed="false"><span class="sprite">🐸</span><span><strong>DANAU HEWAN</strong><small>Kenali hewan</small></span></button>
+<button class="world" data-world="colors" aria-pressed="false"><span class="sprite">🌈</span><span><strong>GUNUNG WARNA</strong><small>Warna & bentuk</small></span></button>
+<button class="world" data-world="life" aria-pressed="false"><span class="sprite">🏰</span><span><strong>KASTEL PINTAR</strong><small>Tubuh & kebiasaan</small></span></button>
+</div>
+<section class="panel" aria-labelledby="progressTitle"><div class="panel-head"><h2 id="progressTitle">🏅 PERJALANAN BELAJARMU</h2><span class="counter">PROGRES</span></div><div class="dashboard"><div class="dash-card"><strong id="dashStars">0</strong><span> BINTANG</span></div><div class="dash-card"><strong id="dashQuestions">0/20</strong><span> SOAL BENAR</span></div><div class="dash-card"><strong id="dashWorlds">0/4</strong><span>DUNIA SELESAI</span></div></div><div class="world-records" id="worldRecords" aria-live="polite"></div></section>
+<section class="panel" id="mission"><div class="panel-head"><h2 id="title">★ MISI PERTAMA</h2><span class="counter" id="counter">1 / 5</span></div><div class="progress"><span id="bar"></span></div><div class="scene" id="scene">🦋 🌼 🦋</div><div class="question" id="question" aria-live="polite">Ada 2 kupu-kupu. Datang 1 lagi. Jadi berapa?</div><div class="answers" id="answers"></div><div class="feedback" id="feedback" hidden role="status" aria-live="polite"></div><div class="actions"><button id="hint" aria-label="Tampilkan petunjuk soal">? PETUNJUK</button><button id="next" disabled aria-label="Lanjut ke soal berikutnya">LANJUT ➜</button></div></section>
+<div class="footer">GAME EDUKASI OFFLINE • USIA 5–7 TAHUN<br>Progres tersimpan otomatis di perangkat ini.<br>★ TERUS MENCOBA, KAMU PASTI BISA! ★<br><button id="reset" style="margin-top:10px;font-size:10px">RESET PROGRES</button></div>
+</main>
+<script>
+const quiz={
+math:[
+["🦋 🌼 🦋","Ada 2 kupu-kupu. Datang 1 lagi. Jadi berapa?",["2","3","4"],"3","Hitung semuanya: dua, lalu satu lagi."],
+["🍎 🍎 🍎","Ada 3 apel. Dimakan 1. Berapa tersisa?",["1","2","3"],"2","Tiga dikurangi satu sama dengan dua."],
+["🐸 🐸 🐸 🐸","Ada 2 katak. Datang 2 lagi. Jumlahnya?",["3","4","5"],"4","Hitung satu per satu sampai empat."],
+["⭐ ⭐ ⭐ ⭐ ⭐","Ada berapa bintang di gambar?",["4","5","6"],"5","Hitung setiap bintang."],
+["🌷 🌷 🌷 🌷 🌷 🌷","Enam bunga dikurangi dua. Sisanya?",["3","4","5"],"4","Mundur dua langkah dari enam."]
+],
+animals:[
+["🐝 🌼 🍯","Hewan yang membantu membuat madu?",["Lebah 🐝","Ikan 🐟","Kucing 🐱"],"Lebah 🐝","Lebah mengunjungi bunga dan membuat madu."],
+["🐟 🌊","Hewan yang hidup di air?",["Ayam 🐔","Ikan 🐟","Kuda 🐴"],"Ikan 🐟","Ikan berenang dengan sirip."],
+["🐘 🌳","Hewan yang punya belalai?",["Gajah 🐘","Kelinci 🐰","Bebek 🦆"],"Gajah 🐘","Belalai gajah panjang dan kuat."],
+["🦋 🌺","Kupu-kupu terbang dengan...",["Sayap","Sirip","Roda"],"Sayap","Sayap membantu kupu-kupu terbang."],
+["🐸 🪷","Katak dewasa bisa hidup di...",["Air dan darat","Awan","Api"],"Air dan darat","Katak sering berada dekat tempat lembap dan kolam."]
+],
+colors:[
+["🔴 + 🟡 = ?","Merah dicampur kuning menjadi...",["Oranye","Hijau","Ungu"],"Oranye","Merah dan kuning menghasilkan oranye."],
+["🍃 🌳","Daun biasanya berwarna...",["Hijau","Biru","Merah muda"],"Hijau","Banyak daun berwarna hijau."],
+["🔺 🔵 🟨","Bentuk yang memiliki tiga sisi?",["Lingkaran","Segitiga","Persegi"],"Segitiga","Segitiga mempunyai tiga sisi."],
+["☀️ 🌤️","Matahari di gambar biasanya berwarna...",["Kuning","Ungu","Cokelat"],"Kuning","Matahari sering digambar kuning."],
+["⚽","Bentuk bola paling mirip dengan...",["Lingkaran","Segitiga","Persegi"],"Lingkaran","Dilihat dari depan, bola tampak bundar."]
+],
+life:[
+["👀 👂 👃","Kita melihat menggunakan...",["Mata 👀","Telinga 👂","Hidung 👃"],"Mata 👀","Mata membantu kita melihat."],
+["👂 🎵","Kita mendengar menggunakan...",["Telinga 👂","Siku","Lutut"],"Telinga 👂","Telinga membantu kita mendengar."],
+["🧼 👐","Sebelum makan, sebaiknya...",["Cuci tangan","Bermain lumpur","Langsung makan"],"Cuci tangan","Gunakan air bersih dan sabun."],
+["🪥 😁","Cara menjaga gigi adalah...",["Sikat gigi","Makan permen terus","Tidak menyikat"],"Sikat gigi","Sikat gigi pagi dan malam."],
+["🌙 🛏️","Saat malam dan mengantuk, kita perlu...",["Tidur cukup","Berlari di jalan","Tidak istirahat"],"Tidur cukup","Tidur membantu tubuh beristirahat."]
+]};
+const worldNames={math:"HUTAN ANGKA",animals:"DANAU HEWAN",colors:"GUNUNG WARNA",life:"KASTEL PINTAR"};
+const $=id=>document.getElementById(id);
+let hero="🦊",world="math",round=0,stars=0,level=1,answered=false,attempts=0,earned=new Set(),correctCount=0,soundOn=true,completed=new Set(),bestScores={};
+const validWorlds=Object.keys(quiz),validHeroes=["🦊","🐰","🐻"];
+try{
+  const s=JSON.parse(localStorage.getItem("hcPixelSave")||"{}");
+  if(validHeroes.includes(s.hero))hero=s.hero;
+  stars=Math.max(0,Math.min(100000,Math.floor(Number(s.stars)||0)));
+  level=Math.max(1,Math.min(20001,Math.floor(Number(s.level)||1)));
+  earned=new Set((Array.isArray(s.earned)?s.earned:[]).filter(k=>typeof k==="string"&&/^(math|animals|colors|life):[0-4]$/.test(k)));
+  completed=new Set((Array.isArray(s.completed)?s.completed:[]).filter(k=>validWorlds.includes(k)));
+  const savedScores=(s.bestScores&&typeof s.bestScores==="object"&&!Array.isArray(s.bestScores))?s.bestScores:{};
+  validWorlds.forEach(k=>{bestScores[k]=Math.max(0,Math.min(5,Math.floor(Number(savedScores[k])||0))) });
+  soundOn=s.soundOn!==false;
+}catch(e){/* Start with a clean save if stored data is unreadable. */}
+function save(){try{localStorage.setItem("hcPixelSave",JSON.stringify({schema:2,hero,stars,level,earned:[...earned],completed:[...completed],bestScores,soundOn}))}catch(e){const f=$("feedback");if(f){f.hidden=false;f.className="feedback hint";f.textContent="Penyimpanan penuh. Progres mungkin tidak tersimpan."}}}
+const heroSprites={"🦊":"sprites/fifi.png","🐰":"sprites/bubu.png","🐻":"sprites/bonbon.png"};
+function updateDashboard(){
+  $("dashStars").textContent=stars;
+  $("dashQuestions").textContent=earned.size+"/20";
+  $("dashWorlds").textContent=completed.size+"/4";
+  const labels={math:"Hutan Angka",animals:"Danau Hewan",colors:"Gunung Warna",life:"Kastel Pintar"};
+  $("worldRecords").innerHTML="";
+  Object.keys(labels).forEach(key=>{const item=document.createElement("div");item.className="world-record";const name=document.createElement("span");name.textContent=labels[key];const score=document.createElement("strong");score.textContent=(bestScores[key]||0)+"/5 ★";item.append(name,score);$("worldRecords").appendChild(item)});
+}
+function header(){$("stars").textContent=stars;updateDashboard();$("level").textContent=level;document.querySelector(".pixel-hero").src=heroSprites[hero]||heroSprites["🦊"];document.querySelector(".pixel-hero").alt="Karakter petualangan "+({"🦊":"Fifi si Rubah","🐰":"Bubu si Kelinci","🐻":"Bonbon si Beruang"}[hero]||"Hutan Ceria");$("sound").textContent=soundOn?"🔊":"🔇";$("sound").setAttribute("aria-pressed",String(soundOn));$("sound").setAttribute("aria-label",soundOn?"Matikan suara":"Nyalakan suara");document.querySelectorAll("[data-world]").forEach(b=>{const label=b.querySelector("small");if(label&&!label.dataset.base)label.dataset.base=label.textContent;if(label)label.textContent=label.dataset.base+(completed.has(b.dataset.world)?" • ✓ SELESAI":"")})}
+let audioCtx=null;
+function tone(freq=660,duration=.12){if(!soundOn)return;try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type="square";osc.frequency.value=freq;gain.gain.setValueAtTime(.045,audioCtx.currentTime);gain.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);osc.connect(gain);gain.connect(audioCtx.destination);osc.start();osc.stop(audioCtx.currentTime+duration)}catch(e){}}
+function render(){answered=false;attempts=0;const q=quiz[world][round];$("title").textContent="★ "+worldNames[world];$("counter").textContent=(round+1)+" / "+quiz[world].length;$("bar").style.width=(round/quiz[world].length*100)+"%";$("scene").textContent=q[0];$("question").textContent=q[1];$("feedback").hidden=true;$("next").disabled=true;$("next").textContent=round===quiz[world].length-1?"SELESAI 🏆":"LANJUT ➜";$("answers").innerHTML="";q[2].forEach(opt=>{const b=document.createElement("button");b.type="button";b.textContent=opt;b.addEventListener("click",()=>pick(opt,b));$("answers").appendChild(b)});}
+function pick(opt,btn){if(answered||btn.disabled)return;const q=quiz[world][round],ok=opt===q[3],f=$("feedback");attempts++;btn.disabled=true;if(ok){answered=true;document.querySelectorAll("#answers button").forEach(b=>{b.disabled=true;if(b.textContent===q[3])b.classList.add("good")});f.hidden=false;f.className="feedback";f.textContent="HEBAT! ★ "+q[4];tone(880,.16);correctCount++;const key=world+":"+round;if(!earned.has(key)){earned.add(key);stars++;if(stars%5===0)level++;save();header()}$("next").disabled=false;$("bar").style.width=((round+1)/quiz[world].length*100)+"%";return;}btn.classList.add("bad");tone(220,.12);f.hidden=false;f.className="feedback hint";const remaining=[...document.querySelectorAll("#answers button")].some(b=>!b.disabled);if(remaining){f.textContent="Belum tepat, tidak apa-apa! Coba pilihan lainnya. 💚";}else{answered=true;document.querySelectorAll("#answers button").forEach(b=>{if(b.textContent===q[3])b.classList.add("good")});f.className="feedback";f.textContent="Jawaban yang benar: "+q[3]+". "+q[4];$("next").disabled=false;$("bar").style.width=((round+1)/quiz[world].length*100)+"%";}}
+function finishWorld(){completed.add(world);bestScores[world]=Math.max(Number(bestScores[world])||0,Math.min(5,correctCount));save();header();$("title").textContent="🏆 MISI SELESAI";$("counter").textContent="TAMAT";$("bar").style.width="100%";$("scene").textContent=correctCount===quiz[world].length?"🎉 ⭐ 🎉":"🌈 "+hero+" 🌈";$("question").textContent="Jawaban benar: "+correctCount+" dari "+quiz[world].length+" soal!";$("answers").innerHTML="";$("feedback").hidden=false;$("feedback").className="feedback";$("feedback").textContent=correctCount===quiz[world].length?"LUAR BIASA! Semua jawaban benar. Kamu hebat!":"KERJA BAGUS! Coba lagi agar makin pintar.";$("next").disabled=false;$("next").textContent="ULANGI MISI ↻";tone(990,.25);}
+function nextStep(){if(!answered)return;if(round<quiz[world].length-1){round++;render()}else{finishWorld()}}
+document.querySelectorAll("[data-hero]").forEach(b=>b.addEventListener("click",()=>{hero=b.dataset.hero;document.querySelectorAll("[data-hero]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));save();header();tone(520)}));
+document.querySelectorAll("[data-world]").forEach(b=>b.addEventListener("click",()=>{world=b.dataset.world;round=0;correctCount=0;document.querySelectorAll("[data-world]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render();tone(520)}));
+$("hint").addEventListener("click",()=>{const f=$("feedback");f.hidden=false;f.className="feedback hint";f.textContent="PETUNJUK: "+quiz[world][round][4];tone(440)});
+$("next").addEventListener("click",()=>{if($("next").textContent.startsWith("ULANGI")){round=0;correctCount=0;render();return}nextStep()});
+$("sound").addEventListener("click",()=>{soundOn=!soundOn;save();header();if(soundOn)tone(660)});
+$("reset").addEventListener("click",()=>{if(!confirm("Hapus semua bintang, level, dan progres permainan?"))return;hero="🦊";stars=0;level=1;earned.clear();completed.clear();bestScores={};world="math";round=0;correctCount=0;save();header();document.querySelectorAll("[data-hero]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.hero===hero)));document.querySelectorAll("[data-world]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.world===world)));render()});
+$("start").addEventListener("click",()=>$("mission").scrollIntoView({behavior:"smooth",block:"start"}));
+header();document.querySelectorAll("[data-hero]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.hero===hero)));render();
+</script></body></html>
