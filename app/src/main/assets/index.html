@@ -97,7 +97,19 @@ function tone(freq=660,duration=.12){if(!soundOn)return;try{audioCtx=audioCtx||n
 function render(){answered=false;attempts=0;const q=quiz[world][round];$("title").textContent="★ "+worldNames[world];$("counter").textContent=(round+1)+" / "+quiz[world].length;$("bar").style.width=(round/quiz[world].length*100)+"%";$("scene").textContent=q[0];$("question").textContent=q[1];$("feedback").hidden=true;$("next").disabled=true;$("next").textContent=round===quiz[world].length-1?"SELESAI 🏆":"LANJUT ➜";$("answers").innerHTML="";q[2].forEach(opt=>{const b=document.createElement("button");b.type="button";b.textContent=opt;b.addEventListener("click",()=>pick(opt,b));$("answers").appendChild(b)});}
 function pick(opt,btn){if(answered||btn.disabled)return;const q=quiz[world][round],ok=opt===q[3],f=$("feedback");attempts++;btn.disabled=true;if(ok){answered=true;document.querySelectorAll("#answers button").forEach(b=>{b.disabled=true;if(b.textContent===q[3])b.classList.add("good")});f.hidden=false;f.className="feedback";f.textContent="HEBAT! ★ "+q[4];tone(880,.16);correctCount++;const key=world+":"+round;if(!earned.has(key)){earned.add(key);stars++;if(stars%5===0)level++;save();header()}$("next").disabled=false;$("bar").style.width=((round+1)/quiz[world].length*100)+"%";return;}btn.classList.add("bad");tone(220,.12);f.hidden=false;f.className="feedback hint";const remaining=[...document.querySelectorAll("#answers button")].some(b=>!b.disabled);if(remaining){f.textContent="Belum tepat, tidak apa-apa! Coba pilihan lainnya. 💚";}else{answered=true;document.querySelectorAll("#answers button").forEach(b=>{if(b.textContent===q[3])b.classList.add("good")});f.className="feedback";f.textContent="Jawaban yang benar: "+q[3]+". "+q[4];$("next").disabled=false;$("bar").style.width=((round+1)/quiz[world].length*100)+"%";}}
 function finishWorld(){completed.add(world);bestScores[world]=Math.max(Number(bestScores[world])||0,Math.min(5,correctCount));save();header();$("title").textContent="🏆 MISI SELESAI";$("counter").textContent="TAMAT";$("bar").style.width="100%";$("scene").textContent=correctCount===quiz[world].length?"🎉 ⭐ 🎉":"🌈 "+hero+" 🌈";$("question").textContent="Jawaban benar: "+correctCount+" dari "+quiz[world].length+" soal!";$("answers").innerHTML="";$("feedback").hidden=false;$("feedback").className="feedback";$("feedback").textContent=correctCount===quiz[world].length?"LUAR BIASA! Semua jawaban benar. Kamu hebat!":"KERJA BAGUS! Coba lagi agar makin pintar.";$("next").disabled=false;$("next").textContent="ULANGI MISI ↻";tone(990,.25);}
-function nextStep(){if(!answered)return;if(round<quiz[world].length-1){round++;render()}else{finishWorld()}}
+
+function nextStep(){
+  if(!answered)return;
+  if(round<quiz[world].length-1){
+    round++;
+    activeSession=true;
+    save();
+    render();
+  }else{
+    finishWorld();
+  }
+}
+  
 document.querySelectorAll("[data-hero]").forEach(b=>b.addEventListener("click",()=>{hero=b.dataset.hero;document.querySelectorAll("[data-hero]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));save();header();tone(520)}));
 document.querySelectorAll("[data-world]").forEach(b=>b.addEventListener("click",()=>{world=b.dataset.world;round=0;correctCount=0;document.querySelectorAll("[data-world]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render();tone(520)}));
 $("hint").addEventListener("click",()=>{const f=$("feedback");f.hidden=false;f.className="feedback hint";f.textContent="PETUNJUK: "+quiz[world][round][4];tone(440)});
